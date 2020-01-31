@@ -1,0 +1,27 @@
+filename='MYW.xlsx';
+tickStep=750; 
+Sheet=1; 
+[~,xAxis]=xlsread(filename,Sheet,'A2:A3000');
+yAxis=xlsread(filename,Sheet,'B16:87');
+
+plot(1:numel(xAxis),yAxis)
+
+set(gca,'xtick',1:tickStep:numel(xAxis)) 
+set(gca,'xticklabel',xAxis(1:tickStep:numel(xAxis))); 
+xlim([0 numel(xAxis)+1]) 
+hold on;
+
+% yAxis1=xlsread(filename,Sheet,'C2:C5308'); 
+% plot(1:numel(xAxis),yAxis1) 
+% set(gca,'xtick',1:tickStep:numel(xAxis))
+% set(gca,'xticklabel',xAxis(1:tickStep:numel(xAxis))); 
+% xlim([0 numel(xAxis)+1]) 
+% hold on;
+
+% [b,a] = butter(6,0.2);
+% Tone_A_filtered =filter(b,a,yAxis);
+% plot(1:numel(xAxis),Tone_A_filtered);
+% hold on;
+% [b,a] = butter(6,0.2);
+% Tone_A_filtered =filter(b,a,yAxis1);
+% plot(1:numel(xAxis),Tone_A_filtered);
