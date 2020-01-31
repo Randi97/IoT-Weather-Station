@@ -1,0 +1,48 @@
+#include <DHT.h>
+#include <DHT_U.h>
+#include <SPI.h>
+#include <ThingerESP8266.h>
+#include <ThingerWifi.h>
+
+
+#define USERNAME "thinger.io username"
+#define DEVICE_ID "Node2"
+#define DEVICE_CREDENTIAL "8PfYGhlneGDO"
+
+#define SSID "your wifi name"
+#define SSID_PASSWORD "your wifi password"
+#define DHTPIN D4
+#define DHTTYPE DHT22
+
+
+
+ThingerESP8266 thing(USERNAME, DEVICE_ID, DEVICE_CREDENTIAL);
+
+DHT dht(DHTPIN, DHTTYPE);
+
+
+
+
+void setup() {
+thing.add_wifi(SSID, SSID_PASSWORD);
+
+
+
+  
+
+dht.begin();
+
+  thing["Measurements DHT22"] >> [](pson & out) {
+    out["Temperature *C"] = dht.readTemperature();
+   out["Temperature *F"] = dht.readTemperature(true);
+    out["Humidity"] = dht.readHumidity() ;
+  };
+
+}
+
+void loop() {
+
+ 
+
+  thing.handle();
+}
